@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	cookieName = "csrf_token"
-	fieldName  = "csrf_token"
-	headerName = "X-CSRF-Token"
+	cookieName = "XSRF-TOKEN"
+	fieldName  = "XSRF-TOKEN"
+	headerName = "X-XSRF-TOKEN"
 )
 
 var (
