@@ -15,6 +15,8 @@ const (
 	cookieName = "XSRF-TOKEN"
 	fieldName  = "XSRF-TOKEN"
 	headerName = "X-XSRF-TOKEN"
+	// Max-Age in seconds for the default base cookie. 365 days.
+	maxAge = 365 * 24 * 60 * 60
 )
 
 var (

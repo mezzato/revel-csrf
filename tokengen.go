@@ -8,6 +8,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/robfig/revel"
 	"io"
+	"net/http"
 )
 
 var rawTokenLength, lengthCSRFToken int
@@ -26,7 +27,19 @@ func generateNewToken(c *revel.Controller) (token string) {
 	token = base64.StdEncoding.EncodeToString(bytes)
 	glog.V(2).Infof("REVEL-CSRF: Generated new Token: '%s'", token)
 	c.Session[cookieName] = token
+
+	// set a cookie explicitly for JavaScript for instance (e.g. AngularJS)
+	setTokenCookie(c.Response.Out, token)
 	return
+}
+
+func setTokenCookie(w http.ResponseWriter, token string) {
+	cookie := http.Cookie{}
+	cookie.MaxAge = maxAge
+	cookie.Name = cookieName
+	cookie.Value = token
+
+	http.SetCookie(w, &cookie)
 }
 
 func init() {
